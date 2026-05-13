@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento Confirmado! • 1CREDIT</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F4D03F;
+      --gold-dark: #B8941E;
+      --bg-dark: #0A0A0A;
+      --bg-card: #141414;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B8B8B8;
+      --border: #2A2A2A;
+      --success: #10B981;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      animation: pulse 15s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .success-card {
+      background: var(--bg-card);
+      border: 2px solid var(--gold);
+      border-radius: 24px;
+      padding: 50px 40px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+
+    .success-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 30px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      animation: scaleIn 0.5s ease 0.3s both;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .info-box {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 35px;
+      text-align: left;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 15px;
+      color: var(--text-secondary);
+    }
+
+    .info-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-item::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: 700;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .whatsapp-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 45px;
+      background: #25D366;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+    }
+
+    .whatsapp-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+      background: #20BA5A;
+    }
+
+    .whatsapp-icon {
+      font-size: 1.5rem;
+      animation: bounce 2s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .note {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+    }
+
+    .urgency {
+      display: inline-block;
+      padding: 8px 16px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid #EF4444;
+      border-radius: 20px;
+      color: #EF4444;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      animation: pulse-urgency 2s ease infinite;
+    }
+
+    @keyframes pulse-urgency {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .success-card {
+        padding: 40px 25px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .whatsapp-cta {
+        padding: 18px 35px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="success-card">
+      <div class="logo">1CREDIT</div>
+      
+      <div class="success-icon">✓</div>
+      
+      <h1>Pagamento Confirmado!</h1>
+      
+      <p class="subtitle">
+        Seu diagnóstico de crédito está sendo processado.<br>
+        Fale conosco agora para acelerar sua análise!
+      </p>
+
+      <div class="urgency">⚡ Atendimento Prioritário Disponível</div>
+
+      <div class="info-box">
+        <div class="info-item">
+          Seu diagnóstico será entregue em até 24 horas
+        </div>
+        <div class="info-item">
+          Enviaremos tudo por e-mail e WhatsApp
+        </div>
+        <div class="info-item">
+          Atendimento prioritário para clientes pagantes
+        </div>
+        <div class="info-item">
+          Tire dúvidas direto com nossos especialistas
+        </div>
+      </div>
+
+      <a href="https://wa.me/5511235975512?text=Ol%C3%A1%21%20Acabei%20de%20fazer%20o%20pagamento%20do%20diagn%C3%B3stico%20de%20cr%C3%A9dito%20e%20gostaria%20de%20falar%20com%20um%20especialista." 
+         target="_blank" 
+         class="whatsapp-cta">
+        <span class="whatsapp-icon">💬</span>
+        Falar com Especialista
+      </a>
+
+      <div class="note">
+        <strong>Próximos passos:</strong><br>
+        1. Clique no botão acima para iniciar o atendimento<br>
+        2. Confirme seu pagamento com nosso time<br>
+        3. Receba orientações personalizadas<br>
+        4. Acompanhe seu diagnóstico em tempo real
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Confetti effect on page load (optional)
+    console.log('Pagamento confirmado! Obrigado pela confiança.');
+    
+    // Track page view (você pode integrar com Google Analytics aqui)
+    // gtag('event', 'purchase', { ... });
+  </script>
+
+</body>
+</html>

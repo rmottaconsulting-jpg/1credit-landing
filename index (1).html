@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico de Crédito Profissional • 1CREDIT</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F4D03F;
+      --gold-dark: #B8941E;
+      --bg-dark: #0A0A0A;
+      --bg-card: #141414;
+      --bg-accent: #1A1A1A;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B8B8B8;
+      --border: #2A2A2A;
+      --success: #10B981;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      animation: pulse 15s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.05); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    /* Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      z-index: 1000;
+      animation: slideDown 0.6s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-cta {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 0 60px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--gold);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      margin-bottom: 25px;
+      line-height: 1.1;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    /* Video */
+    .video-container {
+      max-width: 900px;
+      margin: 50px auto;
+      position: relative;
+    }
+
+    .video-wrapper {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15), 0 0 0 1px var(--border);
+      transition: all 0.4s ease;
+    }
+
+    .video-wrapper:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(212, 175, 55, 0.25), 0 0 0 1px var(--gold);
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* CTA Button */
+    .cta-primary {
+      display: inline-block;
+      padding: 20px 50px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .cta-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .cta-primary:hover::before {
+      left: 100%;
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+    }
+
+    .cta-stats {
+      margin-top: 25px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-item::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    /* Testimonials */
+    .social-proof {
+      padding: 80px 0;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 15px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 50px;
+      font-size: 1.1rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .testimonial-card {
+      background: var(--bg-accent);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .testimonial-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .testimonial-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border: 1px solid var(--border);
+    }
+
+    .testimonial-title {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .testimonial-text {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .testimonial-amount {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 12px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* Pricing */
+    .pricing {
+      padding: 100px 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--gold);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), transparent);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pricing-header {
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-name {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .pricing-description {
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+
+    .pricing-features li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--text-secondary);
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-cta {
+      width: 100%;
+      padding: 16px;
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .pricing-cta:hover {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+    }
+
+    .pricing-card.featured .pricing-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      border: none;
+    }
+
+    .pricing-card.featured .pricing-cta:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .footer-info {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 0 40px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .cta-primary {
+        padding: 18px 40px;
+        font-size: 1rem;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-cta {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-content">
+      <div class="logo">1CREDIT</div>
+      <a href="https://pay.kiwify.com.br/GTypVBo" target="_blank" class="nav-cta">
+        Começar Agora
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">🔒 Análise Profissional e Confidencial</div>
+      
+      <h1>
+        Descubra Por Que o Banco<br>
+        <span class="highlight">Está Negando Seu Crédito</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Pare de tentar no escuro. Saiba exatamente o que os bancos enxergam no seu CPF/CNPJ 
+        e o que precisa ser corrigido para liberar crédito imediatamente.
+      </p>
+
+      <div class="video-container">
+        <div class="video-wrapper">
+          <iframe 
+            src="https://www.youtube.com/embed/doKtVVvSWTc?rel=0&showinfo=0&modestbranding=1"
+            title="Vídeo explicativo"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <a href="https://pay.kiwify.com.br/GTypVBo" target="_blank" class="cta-primary">
+        Fazer Meu Diagnóstico Agora
+      </a>
+
+      <div class="cta-stats">
+        <div class="stat-item">+8.000 análises realizadas</div>
+        <div class="stat-item">Processo 100% seguro</div>
+        <div class="stat-item">Resultado em 24h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="social-proof">
+    <div class="container">
+      <h2 class="section-title">Resultados Reais dos Nossos Clientes</h2>
+      <p class="section-subtitle">
+        Aprovações confirmadas após identificar e corrigir os travamentos de crédito
+      </p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-image">💼</div>
+          <h3 class="testimonial-title">MEI Aprovado em 72h</h3>
+          <p class="testimonial-text">
+            "Descobri que tinha uma pendência simples que travava tudo. Depois de corrigir com o plano do diagnóstico, consegui o crédito em 3 dias."
+          </p>
+          <span class="testimonial-amount">R$ 25.000 aprovados</span>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-image">🏢</div>
+          <h3 class="testimonial-title">Empresa Liberada para Crescimento</h3>
+          <p class="testimonial-text">
+            "O relatório mostrou inconsistências que eu nem sabia que existiam. Depois dos ajustes, o banco aprovou sem problemas."
+          </p>
+          <span class="testimonial-amount">R$ 75.000 aprovados</span>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-image">💳</div>
+          <h3 class="testimonial-title">Cartão + Financiamento</h3>
+          <p class="testimonial-text">
+            "Aumentei meu score em 180 pontos seguindo as orientações. Agora tenho limite alto e taxa de juros muito melhor."
+          </p>
+          <span class="testimonial-amount">Dupla aprovação</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing">
+    <div class="container">
+      <h2 class="section-title">Escolha Seu Plano de Diagnóstico</h2>
+      <p class="section-subtitle">
+        Do básico ao acompanhamento completo — você decide o nível de suporte
+      </p>
+
+      <div class="pricing-grid">
+        <!-- Plan 1 -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-name">Diagnóstico Básico</h3>
+            <div>
+              <span class="pricing-price">R$ 97</span>
+            </div>
+          </div>
+
+          <p class="pricing-description">
+            Ideal para quem quer descobrir o que está travando o crédito
+          </p>
+
+          <ul class="pricing-features">
+            <li>Leitura completa do CPF ou CNPJ</li>
+            <li>Identificação de todas as travas</li>
+            <li>Mapeamento de riscos bancários</li>
+            <li>Relatório objetivo e claro</li>
+            <li>Entrega em até 24h</li>
+          </ul>
+
+          <a href="https://pay.kiwify.com.br/GTypVBo" target="_blank" class="pricing-cta">
+            Fazer Diagnóstico
+          </a>
+        </div>
+
+        <!-- Plan 2 - Featured -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Mais Popular</div>
+          
+          <div class="pricing-header">
+            <h3 class="pricing-name">Consultoria Estratégica</h3>
+            <div>
+              <span class="pricing-price">R$ 137</span>
+            </div>
+          </div>
+
+          <p class="pricing-description">
+            Diagnóstico + plano de ação personalizado por especialista
+          </p>
+
+          <ul class="pricing-features">
+            <li>Tudo do plano Básico</li>
+            <li>Análise aprofundada por especialista</li>
+            <li>Plano de correção passo a passo</li>
+            <li>Priorização das ações</li>
+            <li>Orientação de documentos necessários</li>
+            <li>Suporte por e-mail (7 dias)</li>
+          </ul>
+
+          <a href="https://pay.kiwify.com.br/OsnZFQm" target="_blank" class="pricing-cta">
+            Contratar Consultoria
+          </a>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-name">Acompanhamento Premium</h3>
+            <div>
+              <span class="pricing-price">R$ 297</span>
+            </div>
+          </div>
+
+          <p class="pricing-description">
+            Solução completa com suporte contínuo até a aprovação
+          </p>
+
+          <ul class="pricing-features">
+            <li>Tudo do plano Consultoria</li>
+            <li>Acompanhamento semanal do progresso</li>
+            <li>Ajustes contínuos no perfil</li>
+            <li>Suporte prioritário via WhatsApp</li>
+            <li>Revisões ilimitadas (30 dias)</li>
+            <li>Simulações de crédito</li>
+            <li>Negociação com instituições</li>
+          </ul>
+
+          <a href="https://pay.kiwify.com.br/CpANbci" target="_blank" class="pricing-cta">
+            Acessar Premium
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">1CREDIT</div>
+        
+        <div class="footer-info">
+          <strong>1CREDIT • Soluções Inteligentes em Crédito</strong><br>
+          R. Ezequiel Freire, 55 – Conj. 145 – Santana – São Paulo/SP<br>
+          CNPJ: 33.417.689/0001-03<br>
+          📞 (11) 2359-7512 • ✉️ contato@1credit.com.br
+        </div>
+
+        <div class="footer-bottom">
+          © 2024 1CREDIT. Todos os direitos reservados.<br>
+          Seus dados são protegidos pela LGPD
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
