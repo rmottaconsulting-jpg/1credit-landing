@@ -1,189 +1,121 @@
-<!-- Hero -->
-<!-- NOTIFICAÇÕES DE PROVA SOCIAL -->
-<style>
-.social-notification {
-  position: fixed;
-  bottom: 30px;
-  left: 30px;
-  background: linear-gradient(135deg, #141414, #1A1A1A);
-  border: 1px solid #D4AF37;
-  border-radius: 12px;
-  padding: 16px 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.2);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-width: 320px;
-  z-index: 9999;
-  animation: slideInLeft 0.5s ease, slideOutLeft 0.5s ease 4.5s;
-  opacity: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site not available</title>
+    <style>
+      :root {
+        --colorRgbFacetsTeal600: 2 128 125;
+        --colorTealAction: var(--colorRgbFacetsTeal600);
+        --colorRgbFacetsNeutralLight200: 233 235 237;
+        --colorHr: var(--colorRgbFacetsNeutralLight200);
+        --colorRgbFacetsNeutralLight700: 53 58 62;
+        --colorGrayDarkest: var(--colorRgbFacetsNeutralLight700);
+        --colorGrayLighter: var(--colorRgbFacetsNeutralLight200);
+        --colorText: var(--colorGrayDarkest);
+        --effectShadowLightShallow: 0 1px 10px 0 rgb(53 58 62 / 6%),
+          0 2px 4px 0 rgb(53 58 62 / 8%);
+        --colorRgbFacetsNeutralDark900: 6 11 16;
+      }
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol";
+        background: white;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        line-height: 1.5;
+        color: rgb(var(--colorText));
+      }
 
-.social-notification.show {
-  animation: slideInLeft 0.5s ease forwards;
-}
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: rgb(var(--colorRgbFacetsNeutralDark900));
+        }
+      }
 
-.social-notification.hide {
-  animation: slideOutLeft 0.5s ease forwards;
-}
+      h1 {
+        margin: 0;
+        font-size: 1.375rem;
+        line-height: 1;
+      }
 
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-400px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
+      h1 + p {
+        margin-top: 8px;
+      }
 
-@keyframes slideOutLeft {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-400px);
-    opacity: 0;
-  }
-}
+      .main {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+      }
 
-.social-notification-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #D4AF37, #F4D03F);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-}
+      .card {
+        position: relative;
+        width: 75%;
+        max-width: 364px;
+        padding: 24px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: var(--effectShadowLightShallow);
+        border: 1px solid rgb(var(--colorGrayLighter));
+      }
 
-.social-notification-content {
-  flex: 1;
-}
+      a {
+        margin: 0;
+        font-weight: 600;
+        color: rgb(var(--colorTealAction));
+        text-decoration-skip-ink: all;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+        text-decoration-color: rgb(var(--colorTealAction) / 0.5);
+        transition: text-decoration-color 0.15s ease-in-out;
+      }
 
-.social-notification-name {
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 15px;
-  margin-bottom: 4px;
-}
+      a:hover,
+      a:focus-visible {
+        text-decoration-color: rgb(var(--colorTealAction));
+      }
 
-.social-notification-action {
-  color: #B8B8B8;
-  font-size: 13px;
-}
+      p:last-of-type {
+        margin-bottom: 0;
+      }
 
-.social-notification-time {
-  color: #D4AF37;
-  font-size: 12px;
-  font-weight: 600;
-  margin-top: 2px;
-}
+      hr {
+        border: 0;
+        height: 1px;
+        background: rgb(var(--colorHr));
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .social-notification {
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    min-width: auto;
-  }
-}
-</style>
-
-<div id="notification-container"></div>
-
-<script>
-// Lista de nomes reais brasileiros
-const nomes = [
-  'Carlos Silva', 'Maria Santos', 'João Oliveira', 'Ana Costa', 
-  'Pedro Souza', 'Juliana Lima', 'Rafael Pereira', 'Camila Rodrigues',
-  'Lucas Almeida', 'Fernanda Martins', 'Bruno Ferreira', 'Patricia Ribeiro',
-  'Gustavo Carvalho', 'Mariana Gomes', 'Felipe Barbosa', 'Beatriz Dias',
-  'Thiago Monteiro', 'Larissa Araújo', 'Rodrigo Castro', 'Amanda Rocha',
-  'Daniel Fernandes', 'Gabriela Cardoso', 'Marcelo Mendes', 'Aline Nunes',
-  'André Teixeira', 'Natália Pinto', 'Vitor Correia', 'Renata Azevedo',
-  'Eduardo Ramos', 'Isabela Moreira', 'Leonardo Vieira', 'Caroline Freitas',
-  'Ricardo Duarte', 'Jéssica Cavalcanti', 'Henrique Campos', 'Tatiana Melo',
-  'Marcio Reis', 'Vanessa Nascimento', 'Paulo Lopes', 'Cristina Borges'
-];
-
-// Tipos de diagnóstico
-const planos = [
-  'Diagnóstico Básico',
-  'Consultoria Estratégica',
-  'Acompanhamento Premium'
-];
-
-// Cidades brasileiras
-const cidades = [
-  'São Paulo - SP', 'Rio de Janeiro - RJ', 'Belo Horizonte - MG', 
-  'Brasília - DF', 'Curitiba - PR', 'Porto Alegre - RS',
-  'Salvador - BA', 'Fortaleza - CE', 'Recife - PE', 
-  'Manaus - AM', 'Goiânia - GO', 'Campinas - SP',
-  'Guarulhos - SP', 'Natal - RN', 'Florianópolis - SC'
-];
-
-function criarNotificacao() {
-  const container = document.getElementById('notification-container');
-  
-  // Remove notificação anterior se existir
-  const notificacaoAntiga = container.querySelector('.social-notification');
-  if (notificacaoAntiga) {
-    notificacaoAntiga.remove();
-  }
-
-  // Seleciona dados aleatórios
-  const nome = nomes[Math.floor(Math.random() * nomes.length)];
-  const plano = planos[Math.floor(Math.random() * planos.length)];
-  const cidade = cidades[Math.floor(Math.random() * cidades.length)];
-  
-  // Gera tempo aleatório (1-15 minutos atrás)
-  const minutosAtras = Math.floor(Math.random() * 15) + 1;
-  const tempoTexto = minutosAtras === 1 ? 'Agora mesmo' : `Há ${minutosAtras} minutos`;
-
-  // Cria a notificação
-  const notificacao = document.createElement('div');
-  notificacao.className = 'social-notification show';
-  notificacao.innerHTML = `
-    <div class="social-notification-icon">✓</div>
-    <div class="social-notification-content">
-      <div class="social-notification-name">${nome}</div>
-      <div class="social-notification-action">Adquiriu: ${plano}</div>
-      <div class="social-notification-time">${tempoTexto} • ${cidade}</div>
+      .your-site {
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="card">
+        <h1>Site not available</h1>
+        <p>
+          This site was paused as it reached its usage limits. Please contact the site owner for more information.
+        </p>
+        <hr />
+        <p class="your-site">
+          If this is your site, please visit Netlify’s
+          <a href="https://docs.netlify.com/manage/accounts-and-billing/billing/resume-paused-projects/"
+            >Billing docs page</a
+          >
+          or log into your Netlify account to upgrade your plan.
+        </p>
+      </div>
     </div>
-  `;
-
-  container.appendChild(notificacao);
-
-  // Remove após 5 segundos
-  setTimeout(() => {
-    notificacao.classList.add('hide');
-    setTimeout(() => notificacao.remove(), 500);
-  }, 5000);
-}
-
-// Primeira notificação após 5 segundos
-setTimeout(criarNotificacao, 5000);
-
-// Notificações subsequentes a cada 15-30 segundos
-setInterval(() => {
-  const intervaloAleatorio = Math.floor(Math.random() * 15000) + 15000; // 15-30s
-  setTimeout(criarNotificacao, intervaloAleatorio);
-}, 30000);
-</script>
-html  ... seu código atual ...
-
-  <!-- NOTIFICAÇÕES DE PROVA SOCIAL -->
-  <style>
-  .social-notification {
-    ... todo o código que te dei ...
-  </style>
-
-</body>
+  </body>
 </html>
