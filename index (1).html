@@ -1,165 +1,189 @@
 <!-- Hero -->
-<section class="hero">
-    <div class="container">
-        <div class="hero-badge">🔒 Análise Profissional e Confidencial</div>
-        <h1>
-            Descubra Por Que o Banco<br>
-            <span class="highlight">Está Negando Seu Crédito</span>
-        </h1>
-        <p class="hero-subtitle">
-            Pare de tentar no escuro. Saiba exatamente o que os bancos enxergam no seu CPF/CNPJ e o que precisa ser corrigido para liberar crédito imediatamente.
-        </p>
-        <div class="video-container">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/doKtVVvSWTc?rel=0&showinfo=0&modestbranding=1" title="Vídeo explicativo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-        </div>
-        <a href="https://pay.kiwify.com.br/GTypVBo" target="_blank" class="cta-primary">
-            Fazer Meu Diagnóstico Agora
-        </a>
-        <div class="cta-stats">
-            <div class="stat-item">+8.000 análises realizadas</div>
-            <div class="stat-item">Processo 100% seguro</div>
-            <div class="stat-item">Resultado em 24h</div>
-        </div>
+<!-- NOTIFICAÇÕES DE PROVA SOCIAL -->
+<style>
+.social-notification {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background: linear-gradient(135deg, #141414, #1A1A1A);
+  border: 1px solid #D4AF37;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 320px;
+  z-index: 9999;
+  animation: slideInLeft 0.5s ease, slideOutLeft 0.5s ease 4.5s;
+  opacity: 0;
+}
+
+.social-notification.show {
+  animation: slideInLeft 0.5s ease forwards;
+}
+
+.social-notification.hide {
+  animation: slideOutLeft 0.5s ease forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-400px);
+    opacity: 0;
+  }
+}
+
+.social-notification-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #D4AF37, #F4D03F);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.social-notification-content {
+  flex: 1;
+}
+
+.social-notification-name {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.social-notification-action {
+  color: #B8B8B8;
+  font-size: 13px;
+}
+
+.social-notification-time {
+  color: #D4AF37;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .social-notification {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    min-width: auto;
+  }
+}
+</style>
+
+<div id="notification-container"></div>
+
+<script>
+// Lista de nomes reais brasileiros
+const nomes = [
+  'Carlos Silva', 'Maria Santos', 'João Oliveira', 'Ana Costa', 
+  'Pedro Souza', 'Juliana Lima', 'Rafael Pereira', 'Camila Rodrigues',
+  'Lucas Almeida', 'Fernanda Martins', 'Bruno Ferreira', 'Patricia Ribeiro',
+  'Gustavo Carvalho', 'Mariana Gomes', 'Felipe Barbosa', 'Beatriz Dias',
+  'Thiago Monteiro', 'Larissa Araújo', 'Rodrigo Castro', 'Amanda Rocha',
+  'Daniel Fernandes', 'Gabriela Cardoso', 'Marcelo Mendes', 'Aline Nunes',
+  'André Teixeira', 'Natália Pinto', 'Vitor Correia', 'Renata Azevedo',
+  'Eduardo Ramos', 'Isabela Moreira', 'Leonardo Vieira', 'Caroline Freitas',
+  'Ricardo Duarte', 'Jéssica Cavalcanti', 'Henrique Campos', 'Tatiana Melo',
+  'Marcio Reis', 'Vanessa Nascimento', 'Paulo Lopes', 'Cristina Borges'
+];
+
+// Tipos de diagnóstico
+const planos = [
+  'Diagnóstico Básico',
+  'Consultoria Estratégica',
+  'Acompanhamento Premium'
+];
+
+// Cidades brasileiras
+const cidades = [
+  'São Paulo - SP', 'Rio de Janeiro - RJ', 'Belo Horizonte - MG', 
+  'Brasília - DF', 'Curitiba - PR', 'Porto Alegre - RS',
+  'Salvador - BA', 'Fortaleza - CE', 'Recife - PE', 
+  'Manaus - AM', 'Goiânia - GO', 'Campinas - SP',
+  'Guarulhos - SP', 'Natal - RN', 'Florianópolis - SC'
+];
+
+function criarNotificacao() {
+  const container = document.getElementById('notification-container');
+  
+  // Remove notificação anterior se existir
+  const notificacaoAntiga = container.querySelector('.social-notification');
+  if (notificacaoAntiga) {
+    notificacaoAntiga.remove();
+  }
+
+  // Seleciona dados aleatórios
+  const nome = nomes[Math.floor(Math.random() * nomes.length)];
+  const plano = planos[Math.floor(Math.random() * planos.length)];
+  const cidade = cidades[Math.floor(Math.random() * cidades.length)];
+  
+  // Gera tempo aleatório (1-15 minutos atrás)
+  const minutosAtras = Math.floor(Math.random() * 15) + 1;
+  const tempoTexto = minutosAtras === 1 ? 'Agora mesmo' : `Há ${minutosAtras} minutos`;
+
+  // Cria a notificação
+  const notificacao = document.createElement('div');
+  notificacao.className = 'social-notification show';
+  notificacao.innerHTML = `
+    <div class="social-notification-icon">✓</div>
+    <div class="social-notification-content">
+      <div class="social-notification-name">${nome}</div>
+      <div class="social-notification-action">Adquiriu: ${plano}</div>
+      <div class="social-notification-time">${tempoTexto} • ${cidade}</div>
     </div>
-</section>
+  `;
 
-<!-- Social Proof -->
-<section class="social-proof">
-    <div class="container">
-        <h2 class="section-title">Resultados Reais dos Nossos Clientes</h2>
-        <p class="section-subtitle">
-            Aprovações confirmadas após identificar e corrigir os travamentos de crédito
-        </p>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-image">💼</div>
-                <h3 class="testimonial-title">MEI Aprovado em 72h</h3>
-                <p class="testimonial-text">
-                    "Descobri que tinha uma pendência simples que travava tudo. Depois de corrigir com o plano do diagnóstico, consegui o crédito em 3 dias."
-                </p>
-                <span class="testimonial-amount">R$ 25.000 aprovados</span>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-image">🏢</div>
-                <h3 class="testimonial-title">Empresa Liberada para Crescimento</h3>
-                <p class="testimonial-text">
-                    "O relatório mostrou inconsistências que eu nem sabia que existiam. Depois dos ajustes, o banco aprovou sem problemas."
-                </p>
-                <span class="testimonial-amount">R$ 75.000 aprovados</span>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-image">💳</div>
-                <h3 class="testimonial-title">Cartão + Financiamento</h3>
-                <p class="testimonial-text">
-                    "Aumentei meu score em 180 pontos seguindo as orientações. Agora tenho limite alto e taxa de juros muito melhor."
-                </p>
-                <span class="testimonial-amount">Dupla aprovação</span>
-            </div>
-        </div>
-    </div>
-</section>
+  container.appendChild(notificacao);
 
-<!-- Pricing -->
-<section class="pricing">
-    <div class="container">
-        <h2 class="section-title">Escolha Seu Plano de Diagnóstico</h2>
-        <p class="section-subtitle">
-            Do básico ao acompanhamento completo — você decide o nível de suporte
-        </p>
-        <div class="pricing-grid">
-            <!-- Plan 1 -->
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3 class="pricing-name">Diagnóstico Básico</h3>
-                    <div>
-                        <span class="pricing-price">R$ 97</span>
-                    </div>
-                </div>
-                <p class="pricing-description">
-                    Ideal para quem quer descobrir o que está travando o crédito
-                </p>
-                <ul class="pricing-features">
-                    <li>Leitura completa do CPF ou CNPJ</li>
-                    <li>Identificação de todas as travas</li>
-                    <li>Mapeamento de riscos bancários</li>
-                    <li>Relatório objetivo e claro</li>
-                    <li>Entrega em até 24h</li>
-                </ul>
-                <a href="https://pay.kiwify.com.br/GTypVBo" target="_blank" class="pricing-cta">
-                    Fazer Diagnóstico
-                </a>
-            </div>
+  // Remove após 5 segundos
+  setTimeout(() => {
+    notificacao.classList.add('hide');
+    setTimeout(() => notificacao.remove(), 500);
+  }, 5000);
+}
 
-            <!-- Plan 2 - Featured -->
-            <div class="pricing-card featured">
-                <div class="pricing-badge">Mais Popular</div>
-                <div class="pricing-header">
-                    <h3 class="pricing-name">Consultoria Estratégica</h3>
-                    <div>
-                        <span class="pricing-price">R$ 137</span>
-                    </div>
-                </div>
-                <p class="pricing-description">
-                    Diagnóstico + plano de ação personalizado por especialista
-                </p>
-                <ul class="pricing-features">
-                    <li>Tudo do plano Básico</li>
-                    <li>Análise aprofundada por especialista</li>
-                    <li>Plano de correção passo a passo</li>
-                    <li>Priorização das ações</li>
-                    <li>Orientação de documentos necessários</li>
-                    <li>Suporte por e-mail (7 dias)</li>
-                </ul>
-                <a href="https://pay.kiwify.com.br/OsnZFQm" target="_blank" class="pricing-cta">
-                    Contratar Consultoria
-                </a>
-            </div>
+// Primeira notificação após 5 segundos
+setTimeout(criarNotificacao, 5000);
 
-            <!-- Plan 3 -->
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3 class="pricing-name">Acompanhamento Premium</h3>
-                    <div>
-                        <span class="pricing-price">R$ 297</span>
-                    </div>
-                </div>
-                <p class="pricing-description">
-                    Solução completa com suporte contínuo até a aprovação
-                </p>
-                <ul class="pricing-features">
-                    <li>Tudo do plano Consultoria</li>
-                    <li>Acompanhamento semanal do progresso</li>
-                    <li>Ajustes contínuos no perfil</li>
-                    <li>Suporte prioritário via WhatsApp</li>
-                    <li>Revisões ilimitadas (30 dias)</li>
-                    <li>Simulações de crédito</li>
-                    <li>Negociação com instituições</li>
-                </ul>
-                <a href="https://pay.kiwify.com.br/CpANbci" target="_blank" class="pricing-cta">
-                    Acessar Premium
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+// Notificações subsequentes a cada 15-30 segundos
+setInterval(() => {
+  const intervaloAleatorio = Math.floor(Math.random() * 15000) + 15000; // 15-30s
+  setTimeout(criarNotificacao, intervaloAleatorio);
+}, 30000);
+</script>
+html  ... seu código atual ...
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-logo">1CREDIT</div>
-            <div class="footer-info">
-                <strong>1CREDIT • Soluções Inteligentes em Crédito</strong><br>
-                R. Ezequiel Freire, 55 – Conj. 145 – Santana – São Paulo/SP<br>
-                CNPJ: 33.417.689/0001-03<br>
-                📞 (11) 2359-7512 • ✉️ contato@1credit.com.br
-            </div>
-            <div class="footer-bottom">
-                © 2024 1CREDIT. Todos os direitos reservados.<br>
-                Seus dados são protegidos pela LGPD
-            </div>
-        </div>
-    </div>
-</footer>
+  <!-- NOTIFICAÇÕES DE PROVA SOCIAL -->
+  <style>
+  .social-notification {
+    ... todo o código que te dei ...
+  </style>
+
+</body>
+</html>
